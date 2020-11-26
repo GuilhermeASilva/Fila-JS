@@ -1,27 +1,16 @@
-    // function orderKey(lista, key){
-    // let list_keys = []
-    // for(let i in lista){
-    //      let elements = lista[i]
-    //      list_keys.push(elements[key])
-    // }
-    // list_keys.sort(function(a, b){return a-b})
-    // return list_keys
-    // }
-    
-    // function orderByKey(lista, key){
-    //     let comparator = orderKey(lista, key)
-    //     let new_lista = []
-    //     for(let i in lista){
-    //         let element = lista[i]
-    //         if (element[key] =! comparator[0]){
-    //             lista.push(element)
-    //         }
-    //         comparator.shift()
-    //         new_lista.push(element)
-    //     }
-    //     return new_lista
-    // }
-
+const orderBy = (arr, props, orders) =>
+    [...arr].sort((a, b) =>
+        props.reduce((acc, prop, i) => {
+            if (acc === 0) {
+                const [p1, p2] =
+                    orders && orders[i] === "desc"
+                        ? [b[prop], a[prop]]
+                        : [a[prop], b[prop]];
+                acc = p1 > p2 ? 1 : p1 < p2 ? -1 : 0;
+            }
+            return acc;
+        }, 0)
+    );
 
 class Queue{
     constructor(lista){
@@ -73,7 +62,9 @@ class Queue{
    {tipo: "Pintura", prazo: 250}
 ]
     let my_queue = new Queue(los)
-    console.log(my_queue.isEmpty())
+    console.log(my_queue.enqueue())
+
+  console.log(orderBy(los, ["tipo"], ["asc"]))
     
 
     
